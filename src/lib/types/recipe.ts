@@ -35,6 +35,7 @@ export type Hop = {
 export enum HopAdditionType {
   Boil = 'boil',
   DryHop = 'dry hop',
+  FirstWort = 'first wort',
   HopStand = 'hop stand',
   Whirlpool = 'whirlpool',
 }
