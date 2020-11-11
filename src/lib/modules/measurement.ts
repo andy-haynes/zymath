@@ -3,6 +3,7 @@ import _ from 'lodash';
 import UnitConversionTable from '../constants/unit_conversion';
 import {
   Measurement,
+  MeasurementRatio,
   MeasurementUnit,
   TemperatureMeasurement,
   TemperatureUnit,
@@ -14,6 +15,39 @@ function celsiusToFahrenheit(degreesCelsius: number): number {
 
 function fahrenheitToCelsius(degreesFahrenheit: number): number {
   return (degreesFahrenheit - 32) * 5/9;
+}
+
+export function convertRatio({ oldRatio, newRatio, precision }: {
+  newRatio: MeasurementRatio,
+  oldRatio: MeasurementRatio,
+  precision?: number,
+}): MeasurementRatio {
+  let value = newRatio.value || oldRatio.value || 0;
+  let multiplier = 1;
+  let divisor = 1;
+
+  if (oldRatio.antecedent !== newRatio.antecedent) {
+    multiplier = convertToUnit({
+      measurement: { value: 1, unit: oldRatio.antecedent },
+      unit: newRatio.antecedent
+    }).value;
+  }
+
+  if (oldRatio.consequent !== newRatio.consequent) {
+    divisor = convertToUnit({
+      measurement: { value: 1, unit: oldRatio.consequent },
+      unit: newRatio.consequent
+    }).value;
+  }
+
+  const factor = multiplier / divisor;
+  value *= factor;
+
+  if (precision) {
+    value = _.round(value, precision);
+  }
+
+  return { ...newRatio, value };
 }
 
 function convertTemperature({ temperature, unit } : {

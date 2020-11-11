@@ -3,6 +3,9 @@ export type Measurement = TemperatureMeasurement
   | VolumeMeasurement
   | WeightMeasurement;
 
+export type MeasurementRatio = VolumePerWeightRatio
+  | VolumePerTimeRatio;
+
 export type MeasurementUnit = TemperatureUnit
   | TimeUnit
   | VolumeUnit
@@ -13,6 +16,12 @@ export type NamedMeasurementUnit = {
   name: string;
   shortName?: string;
   shorterName?: string;
+};
+
+export type RatioMeasurement<T extends MeasurementUnit, V extends MeasurementUnit> = {
+  antecedent: T;
+  consequent: V;
+  value: number;
 };
 
 export type TemperatureMeasurement = ValueMeasurement<TemperatureUnit>;
@@ -36,6 +45,10 @@ export type ValueMeasurement<T extends MeasurementUnit> = {
 };
 
 export type VolumeMeasurement = ValueMeasurement<VolumeUnit>;
+
+export type VolumePerTimeRatio = RatioMeasurement<VolumeUnit, TimeUnit>;
+
+export type VolumePerWeightRatio = RatioMeasurement<VolumeUnit, WeightUnit>;
 
 export enum VolumeUnit {
   Cup = 'cup',
