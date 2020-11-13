@@ -1,5 +1,4 @@
 import dayjs from 'dayjs';
-import type { Dayjs } from 'dayjs';
 import _ from 'lodash';
 
 import { gravityToPoints, pointsToGravity } from './gravity';
@@ -15,8 +14,7 @@ export function calculateAlcoholByVolume({ finalGravity, originalGravity }: {
 }
 
 export function calculateCellCount({ manufactureDate, startingCount }: {
-  manufactureDate: Dayjs,
-  // starterSteps: StarterAdditionType,
+  manufactureDate: string,
   startingCount: number,
 }): number {
   return startingCount * (calculateYeastViability(manufactureDate) / 100);
@@ -44,7 +42,7 @@ export function calculateRecommendedCellCount({ pitchRate, originalGravity, targ
   return millionsOfCells * volumeInMilliliters * gravityToPlato(originalGravity);
 }
 
-export function calculateYeastViability(manufactureDate: Dayjs): number {
-  const monthsSinceMfg = dayjs().diff(manufactureDate, 'month');
+export function calculateYeastViability(manufactureDate: string): number {
+  const monthsSinceMfg = dayjs().diff(dayjs(manufactureDate), 'month');
   return _.round(Math.max(96.2 - (21.5 * monthsSinceMfg), 10), 1);
 }
