@@ -1,11 +1,10 @@
 {
   "name": "zymath",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "tsc && node dist/index.js"
-  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "prepublish": "npx tsc",
   "keywords": [],
   "author": "",
   "license": "ISC",
