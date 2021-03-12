@@ -127,7 +127,7 @@ export function calculateMashoutWaterTemp({
   mashoutTemperature: TemperatureMeasurement,
   spargeVolume: VolumeMeasurement,
   strikeVolume: VolumeMeasurement,
-}) {
+}): TemperatureMeasurement {
   const mashoutF = convertToUnit({
     measurement: mashoutTemperature,
     unit: TemperatureUnit.Fahrenheit,

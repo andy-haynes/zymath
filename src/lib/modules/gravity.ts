@@ -23,10 +23,10 @@ export function pointsToGravity(points: number): number {
   return _.round(1 + (points / 1000), 3);
 }
 
-export function gravityToPlato(gravity: number) {
+export function gravityToPlato(gravity: number): number {
   return gravityToPoints(gravity) / 4;
 }
 
-export function platoToGravity(plato: number) {
+export function platoToGravity(plato: number): number {
   return pointsToGravity(plato * 4);
 }

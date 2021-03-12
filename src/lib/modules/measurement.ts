@@ -13,10 +13,6 @@ function celsiusToFahrenheit(degreesCelsius: number): number {
   return (degreesCelsius * 9/5) + 32;
 }
 
-function fahrenheitToCelsius(degreesFahrenheit: number): number {
-  return (degreesFahrenheit - 32) * 5/9;
-}
-
 export function convertRatio({ oldRatio, newRatio, precision }: {
   newRatio: MeasurementRatio,
   oldRatio: MeasurementRatio,
@@ -96,4 +92,8 @@ export function convertToUnit({ measurement, precision, unit } : {
     ...measurement,
     value,
   };
+}
+
+function fahrenheitToCelsius(degreesFahrenheit: number): number {
+  return (degreesFahrenheit - 32) * 5/9;
 }

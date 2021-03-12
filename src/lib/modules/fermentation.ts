@@ -23,7 +23,7 @@ export function calculateCellCount({ manufactureDate, startingCount }: {
 export function calculateFinalGravity({ apparentAttenuation, originalGravity }: {
   apparentAttenuation: number,
   originalGravity: number,
-}) {
+}): number {
   const ogPoints = gravityToPoints(originalGravity);
   return pointsToGravity(ogPoints - (ogPoints * apparentAttenuation));
 }

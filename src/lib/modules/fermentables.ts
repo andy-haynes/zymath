@@ -10,28 +10,15 @@ function calculateMaltColorUnit({ lovibond, volume, weight } : {
   lovibond: number,
   volume: VolumeMeasurement,
   weight: WeightMeasurement,
-}) {
+}): number {
   const weightInPounds = convertToUnit({ measurement: weight, unit: WeightUnit.Pound }).value;
   const volumeInGallons = convertToUnit({ measurement: volume, unit: VolumeUnit.Gallon }).value;
   return weightInPounds * (lovibond / volumeInGallons);
 }
 
-export function calculateSRM({ fermentables, targetVolume } :{
-  fermentables: Fermentable[],
-  targetVolume: VolumeMeasurement
-}) {
-  const maltColorUnit = _.sumBy(fermentables, ({ lovibond, weight }) => {
-    if (!lovibond || isNaN(lovibond)) {
-      return 0;
-    }
-
-    return calculateMaltColorUnit({
-      volume: targetVolume,
-      lovibond,
-      weight,
-    });
-  });
-
+export function calculateSRM({ maltColorUnit } : {
+  maltColorUnit: number,
+}): number {
   return 1.4922 * Math.pow(maltColorUnit, 0.6859);
 }
 
@@ -60,7 +47,26 @@ export function calculatePotentialGravity({ efficiency, fermentables, targetVolu
   return pointsToGravity(points / volumeInGallons);
 }
 
+export function calculateRecipeSRM({ fermentables, targetVolume } :{
+  fermentables: Fermentable[],
+  targetVolume: VolumeMeasurement
+}): number {
+  const totalMCU = _.sumBy(fermentables, ({ lovibond, weight }) => {
+    if (!lovibond || isNaN(lovibond)) {
+      return 0;
+    }
+
+    return calculateMaltColorUnit({
+      volume: targetVolume,
+      lovibond,
+      weight,
+    });
+  });
+
+  return calculateSRM({ maltColorUnit: totalMCU });
+}
+
 /* http://byo.com/mead/item/1544-understanding-malt-spec-sheets-advanced-brewing */
-export function dbfgToGravity(dbfg: number) {
+export function dbfgToGravity(dbfg: number): number {
   return _.round(1 + ((dbfg / 100) * 0.04621), 3);
 }

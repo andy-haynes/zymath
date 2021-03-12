@@ -5,7 +5,7 @@ import { Hop, HopAddition, HopAdditionType } from '../types/hops';
 import { VolumeMeasurement, VolumeUnit, WeightUnit } from '../types/measurement';
 import { convertToUnit } from './measurement';
 
-export function getUtilizationFactor(additionType: HopAdditionType) {
+export function getUtilizationFactor(additionType: HopAdditionType): number {
   switch (additionType) {
     case HopAdditionType.FirstWort:
       return 1.1;
