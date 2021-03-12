@@ -1,8 +1,8 @@
 // TODO get boil volume and gravity values as a function of addition time
 import _ from 'lodash';
 
+import { Hop, HopAddition, HopAdditionType } from '../types/hops';
 import { VolumeMeasurement, VolumeUnit, WeightUnit } from '../types/measurement';
-import { Hop, HopAddition, HopAdditionType } from '../types/recipe';
 import { convertToUnit } from './measurement';
 
 export function getUtilizationFactor(additionType: HopAdditionType) {

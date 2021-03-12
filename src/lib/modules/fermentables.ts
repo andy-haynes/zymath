@@ -1,8 +1,8 @@
 import _ from 'lodash';
 
 import { ExtractGravity } from '../constants/gravity';
+import { Fermentable } from '../types/fermentables';
 import { VolumeMeasurement, VolumeUnit, WeightMeasurement, WeightUnit } from '../types/measurement';
-import { Fermentable } from '../types/recipe';
 import { gravityToPoints, pointsToGravity } from './gravity';
 import { convertToUnit } from './measurement';
 

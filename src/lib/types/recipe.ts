@@ -1,87 +1,42 @@
-import { TemperatureMeasurement, WeightMeasurement } from './measurement';
+import { BrewInstance } from './brewing';
+import { Fermentable } from './fermentables';
+import { Ferment } from './fermentation';
+import { Hop } from './hops';
+import { MashProfile } from './mash';
+import { VolumeMeasurement } from './measurement';
+import { Yeast } from './yeast';
 
-export enum ExtractType {
-  Dry = 'dry',
-  Liquid = 'liquid',
-}
-
-export type Fermentable = {
+export type Recipe = {
+  id: string;
   name: string;
-  color: string;
-  extractType?: ExtractType;
-  gravity: string|null;
-  isExtract: boolean;
-  lovibond: number|null;
-  weight: WeightMeasurement;
+  style: RecipeStyle;
+  brewInstances: BrewInstance[];
+  fermentables: Fermentable[];
+  hops: Hop[];
+  yeast: Yeast[];
+  mash: MashProfile
+  ferments: Ferment[];
+  targetVolume: VolumeMeasurement;
 };
 
-export type HopAddition = {
-  minutes: number;
-  quantity: WeightMeasurement;
-  type: HopAdditionType;
-  ibu: number;
-  utilization: number;
-};
-
-export type Hop = {
-  name: string;
-  alpha: number;
-  beta: number;
-  additions: HopAddition[];
-  aromaticProfile: string[];
-  form: HopFormType;
-};
-
-export enum HopAdditionType {
-  Boil = 'boil',
-  DryHop = 'dry hop',
-  FirstWort = 'first wort',
-  HopStand = 'hop stand',
-  Whirlpool = 'whirlpool',
-}
-
-export enum HopFormType {
-  Pellet = 'pellet',
-  WholeLeaf = 'whole leaf',
-}
-
-export enum IngredientType {
-  Malt = 'malt',
-  Hop = 'hop',
-  Yeast = 'yeast',
-}
-
-export enum LossType {
-  Boil = 'boil',
-  DeadSpace = 'dead space',
-  Grains = 'grains',
-  Hops = 'hops',
-}
-
-export enum MashMethod {
-  BIAB = 'biab',
-  Decoction = 'decoction',
-  Infusion = 'infusion',
-}
-
-export enum SpargeMethod {
-  None = 'no sparge',
-  Batch = 'batch sparge',
-  Fly = 'fly sparge',
-}
-
-export enum StarterAdditionType {
-  Energizer = 'energizer',
-  Fermentable = 'fermentable',
-  Nutrient = 'nutrient',
-}
-
-export type Yeast = {
-  name: string;
+export type RecipeStyle = {
+  ABV: string;
+  appearance: string;
+  aroma: string;
+  category: string;
+  characteristicIngredients: string;
   code: string;
-  pitchRate?: number;
-  pitchTemp?: TemperatureMeasurement;
-  quantity: number;
-  targetCellCount: number;
-  styles?: string;
-};
+  comments: string;
+  commercialExamples: string[];
+  FG: string;
+  flavor: string;
+  history: string;
+  IBUs: string;
+  mouthfeel: string;
+  name: string;
+  OG: string;
+  overallImpression: string;
+  SRM: string;
+  styleComparison: string;
+  tags: string[];
+}

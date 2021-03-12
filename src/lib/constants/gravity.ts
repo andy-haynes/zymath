@@ -1,4 +1,4 @@
-import { ExtractType } from '../types/recipe';
+import { ExtractType } from '../types/fermentables';
 
 export const ExtractGravity = {
   [ExtractType.Dry]: 1.044,
