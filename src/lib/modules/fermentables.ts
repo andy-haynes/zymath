@@ -1,6 +1,7 @@
 import _ from 'lodash';
 
 import { ExtractGravity } from '../constants/gravity';
+import SrmRgb from '../constants/srm_rgb';
 import { Fermentable } from '../types/fermentables';
 import { VolumeMeasurement, VolumeUnit, WeightMeasurement, WeightUnit } from '../types/measurement';
 import { gravityToPoints, pointsToGravity } from './gravity';
@@ -14,12 +15,6 @@ function calculateMaltColorUnit({ lovibond, volume, weight } : {
   const weightInPounds = convertToUnit({ measurement: weight, unit: WeightUnit.Pound }).value;
   const volumeInGallons = convertToUnit({ measurement: volume, unit: VolumeUnit.Gallon }).value;
   return weightInPounds * (lovibond / volumeInGallons);
-}
-
-export function calculateSRM({ maltColorUnit } : {
-  maltColorUnit: number,
-}): number {
-  return 1.4922 * Math.pow(maltColorUnit, 0.6859);
 }
 
 export function calculatePotentialGravity({ efficiency, fermentables, targetVolume } : {
@@ -47,7 +42,7 @@ export function calculatePotentialGravity({ efficiency, fermentables, targetVolu
   return pointsToGravity(points / volumeInGallons);
 }
 
-export function calculateRecipeSRM({ fermentables, targetVolume } :{
+export function calculateSrm({ fermentables, targetVolume } :{
   fermentables: Fermentable[],
   targetVolume: VolumeMeasurement
 }): number {
@@ -63,7 +58,12 @@ export function calculateRecipeSRM({ fermentables, targetVolume } :{
     });
   });
 
-  return calculateSRM({ maltColorUnit: totalMCU });
+  return 1.4922 * Math.pow(totalMCU, 0.6859);
+}
+
+export function getFermentableColor(srm: number): string | undefined {
+  const boundedSrm = _.max([srm, 40]) || 0;
+  return SrmRgb[boundedSrm];
 }
 
 /* http://byo.com/mead/item/1544-understanding-malt-spec-sheets-advanced-brewing */
