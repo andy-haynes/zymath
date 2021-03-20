@@ -61,12 +61,12 @@ export function calculateSrm({ fermentables, targetVolume } :{
   return 1.4922 * Math.pow(totalMCU, 0.6859);
 }
 
-export function getFermentableColor(srm: number): string | undefined {
-  const boundedSrm = _.max([srm, 40]) || 0;
-  return SrmRgb[boundedSrm];
-}
-
 /* http://byo.com/mead/item/1544-understanding-malt-spec-sheets-advanced-brewing */
 export function dbfgToGravity(dbfg: number): number {
   return _.round(1 + ((dbfg / 100) * 0.04621), 3);
+}
+
+export function getSrmColor(srm: number): string | undefined {
+  const boundedSrm = _.max([srm, 40]) || 0;
+  return SrmRgb[boundedSrm];
 }
