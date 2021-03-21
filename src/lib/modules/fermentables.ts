@@ -67,6 +67,6 @@ export function dbfgToGravity(dbfg: number): number {
 }
 
 export function getSrmColor(srm: number): string {
-  const boundedSrm = _.max([srm, 40]) || 0;
+  const boundedSrm = _.max([_.round(srm), 40]) || 0;
   return SrmRgb[boundedSrm];
 }
