@@ -1,20 +1,19 @@
-import { WeightMeasurement } from './measurement';
+import { TimeMeasurement, WeightMeasurement } from './measurement';
 
 export type Hop = {
+  id: string;
   name: string;
   alpha: number;
   beta: number;
   additions: HopAddition[];
   aromaticProfile: string[];
-  form: HopFormType;
 };
 
 export type HopAddition = {
-  minutes: number;
+  form: HopFormType;
+  time: TimeMeasurement;
   quantity: WeightMeasurement;
   type: HopAdditionType;
-  ibu: number;
-  utilization: number;
 };
 
 export enum HopAdditionType {

@@ -2,7 +2,7 @@
 import _ from 'lodash';
 
 import { Hop, HopAddition, HopAdditionType } from '../types/hops';
-import { VolumeMeasurement, VolumeUnit, WeightUnit } from '../types/measurement';
+import { TimeUnit, VolumeMeasurement, VolumeUnit, WeightUnit } from '../types/measurement';
 import { convertToUnit } from './measurement';
 
 export function getUtilizationFactor(additionType: HopAdditionType): number {
@@ -22,8 +22,12 @@ export function calculateUtilization({ addition, gravity }: {
   addition: HopAddition,
   gravity: number,
 }): number {
+  const { value: additionMinutes } = convertToUnit({
+    measurement: addition.time,
+    unit: TimeUnit.Minute,
+  });
   const fG = 1.65 * Math.pow(0.000125, gravity - 1);
-  const fT = (1 - Math.pow(Math.E, -0.04 * addition.minutes)) / 4.15;
+  const fT = (1 - Math.pow(Math.E, -0.04 * additionMinutes)) / 4.15;
   return fG * fT * getUtilizationFactor(addition.type);
 }
 
