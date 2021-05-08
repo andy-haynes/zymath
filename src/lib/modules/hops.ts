@@ -13,6 +13,7 @@ export function getUtilizationFactor(additionType: HopAdditionType): number {
     case HopAdditionType.DryHop:
       return 0;
     case HopAdditionType.Boil:
+    case HopAdditionType.Flameout:
     default:
       return 1.0
   }

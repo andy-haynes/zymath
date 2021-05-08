@@ -20,6 +20,7 @@ export enum HopAdditionType {
   Boil = 'boil',
   DryHop = 'dry hop',
   FirstWort = 'first wort',
+  Flameout = 'flameout',
   HopStand = 'hop stand',
   Whirlpool = 'whirlpool',
 }
