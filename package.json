@@ -1,6 +1,6 @@
 {
   "name": "zymath",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -17,6 +17,10 @@
   "dependencies": {
     "dayjs": "^1.9.6",
     "lodash": "^4.17.20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andy-haynes/zymath.git"
   },
   "scripts": {
     "build": "npx tsc",
